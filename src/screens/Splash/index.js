@@ -5,12 +5,11 @@ import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 
 // render-area:
 export default ( props ) => {  
-    
 // state-area: 
     useEffect(()=>{
         setTimeout(()=>{
             props.navigation.navigate('Login');
-        }, 2000);
+        }, 0);
     }, [])
 
   return (
