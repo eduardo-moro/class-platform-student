@@ -1,6 +1,6 @@
 import React, { useState } from 'react'; 
-import { View, Text, StyleSheet, TextInput, Image, TouchableHighlight } from 'react-native'; 
-import Books from '../../../assets/books.png'
+import { View, Text, StyleSheet, TextInput,Image, TouchableHighlight } from 'react-native'; 
+import Books from '../../assets/books.png';
 
 export default ( props ) => {
 
