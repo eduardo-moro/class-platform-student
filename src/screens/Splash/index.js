@@ -10,7 +10,7 @@ export default ( props ) => {
     useEffect(()=>{
         setTimeout(()=>{
             props.navigation.navigate('Login');
-        }, 250);
+        }, 2000);
     }, [])
 
   return (
