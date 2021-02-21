@@ -1,23 +1,40 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
 
-export default () => {
+// import-area:
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+
+// render-area:
+export default ( props ) => {  
+    
+// state-area: 
+    useEffect(()=>{
+        setTimeout(()=>{
+            props.navigation.navigate('Login');
+        }, 250);
+    }, [])
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>class platform</Text>
+        <Text style={styles.text}>Class platform</Text>
+      <ActivityIndicator size='large' color='#48f'/>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
+// styled-area:
+const styles = StyleSheet.create(
+    {
     container:{
         flex:1, 
         justifyContent:'center', 
-        alignItems:'center'
+        alignItems:'center', 
+        backgroundColor:'#ffffff'
     }, 
     text:{
         fontSize:42, 
+        color: "#333",
         fontFamily: 'Aria-classic'
-    }
+    },
+
 }); 
 
