@@ -8,7 +8,10 @@ export default ( props ) => {
 // state-area: 
     useEffect(()=>{
         setTimeout(()=>{
-            props.navigation.navigate('Login');
+            props.navigation.reset({
+                index:0,
+                routes:[{name:'Login'}]
+            });
         }, 0);
     }, [])
 
