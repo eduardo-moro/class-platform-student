@@ -12,7 +12,7 @@ export default ( props ) => {
                 index:0,
                 routes:[{name:'Login'}]
             });
-        }, 0);
+        }, 350)
     }, [])
 
   return (
