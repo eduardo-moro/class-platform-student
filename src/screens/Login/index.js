@@ -7,6 +7,11 @@ import {
   Image,
   TouchableHighlight,
 } from 'react-native';
+
+import apiConfig from '../../config/api';
+
+import getLoginClient from '../../api/apiAuth/logged'
+
 import AsyncStorage from '@react-native-community/async-storage';
 import Books from "../../../assets/books.png";
 
@@ -24,23 +29,55 @@ export default (props) => {
   const [errorMail, setErrorMail] = useState('');
   const [errorPass, setErrorPass] = useState('');
 
+  const getToken = async () => {
+    let data = {
+      "email": mail ,
+      "password": pass
+    }
+
+    const client = await getLoginClient();
+    await client
+        .post(apiConfig.baseurl + 'login', data)
+        .then((response) => {
+          console.log(response)
+
+          return response.status === 200;
+
+        })
+        .catch((error) => {
+          console.log(error)
+          return false
+        })
+
+  }
+
   const handleButton = () => {
     let error = 0;
     if (!mail) {
       error = 1;
-      setErrorMail("O email é obrigatório");
+      setErrorMail("Email required.");
+    } else {
+      setErrorMail("");
     }
 
     if (!pass) {
       error = 1;
-      setErrorPass("A senha é obrigatória");
+      setErrorPass("Password required.");
+    } else {
+      setErrorPass("");
     }
+
+
 
     if (error === 0) {
       this.storeData('mail', mail).then(() => {
-        props.navigation.reset({
-          index: 0,
-          routes: [{ name: "Home" }],
+        this.storeData('password', pass).then(() => {
+          if(getToken()){
+            props.navigation.reset({
+              index: 0,
+              routes: [{ name: "Home" }],
+          });
+          }
         });
       });
     }
@@ -53,22 +90,30 @@ export default (props) => {
         <TextInput
           onChangeText={setMail}
           style={styles.input}
-          placeholder={"email"}
+          placeholder="email"
         />
         <Text style={styles.error}>{errorMail}</Text>
         <TextInput
           onChangeText={setPass}
           style={styles.input}
-          placeholder={"Password"}
+          placeholder="Password"
         />
         <Text style={styles.error}>{errorPass}</Text>
-        <TouchableHighlight
-          underlayColor={"#8cf"}
-          onPress={() => handleButton()}
-          style={styles.button}
-        >
-          <Text style={{ textAlign: "center", color: "white" }}>login</Text>
-        </TouchableHighlight>
+
+        <View style={styles.actions}>
+          <TouchableHighlight underlayColor="#333333" style={styles.register}>
+            <Text style={{ textAlign: "center", color: "#555555" }}>
+              Register
+            </Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            underlayColor="#8cf"
+            onPress={() => handleButton()}
+            style={styles.button}
+          >
+            <Text style={{ textAlign: "center", color: "white" }}>login</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     </View>
   );
@@ -78,7 +123,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#ecf0f5',
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
     alignItems: 'center',
     paddingVertical: "8%",
   },
@@ -87,16 +132,26 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "#fff",
-    maxWidth: 380,
     height: 42,
     width: "100%",
     marginBottom: 2,
-    paddingHorizontal: 12,
-    borderRadius: 2,
+    paddingHorizontal: 22,
+    borderRadius: 22,
   },
   button: {
     backgroundColor: "#48f",
-    width: '100%',
+    borderRadius: 22,
+    width: '48%',
+    height: 32,
+    justifyContent: 'center',
+    alignContent: 'center',
+    textAlign: 'center',
+    marginTop: 12,
+  },
+  register: {
+    backgroundColor: "#ffffff",
+    borderRadius: 22,
+    width: '48%',
     height: 32,
     justifyContent: 'center',
     alignContent: 'center',
@@ -105,7 +160,9 @@ const styles = StyleSheet.create({
   },
   form: {
     maxWidth: 600,
+    height: 200,
     width: '80%',
+    justifyContent: "space-between"
   },
   image: {
     height: '32%',
@@ -115,6 +172,12 @@ const styles = StyleSheet.create({
     top: '14%',
   },
   error: {
+    paddingHorizontal: 22,
     color: 'red',
   },
+  actions: {
+    justifyContent: "space-between",
+    alignContent: "space-between",
+    flexDirection: "row"
+  }
 });

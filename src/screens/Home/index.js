@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 export default ({ navigation }) => {
-  const [mail, setMail] = useState("");
+  const [mail, setMail] = useState('');
   const handleButton = () => {
     navigation.reset({
       index: 0,
@@ -13,7 +13,7 @@ export default ({ navigation }) => {
 
   const retrieveData = async (key, value) => {
     try {
-      value = await AsyncStorage.getItem("mail");
+      value = await AsyncStorage.getItem('mail');
       if (value !== null) {
         return value;
       }
@@ -28,7 +28,7 @@ export default ({ navigation }) => {
     <View style={styles.container}>
       <Text>olá {mail}</Text>
       <TouchableHighlight
-        underlayColor={'#8cf'}
+        underlayColor="#88ccff"
         onPress={() => handleButton()}
         style={styles.button}
       >
