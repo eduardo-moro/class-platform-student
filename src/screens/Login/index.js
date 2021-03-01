@@ -83,40 +83,20 @@ export default (props) => {
     }
   };
 
-  return (
-    <View style={styles.container}>
-      <Image style={styles.image} source={Books} />
-      <View style={styles.form}>
-        <TextInput
-          onChangeText={setMail}
-          style={styles.input}
-          placeholder="email"
-        />
-        <Text style={styles.error}>{errorMail}</Text>
-        <TextInput
-          onChangeText={setPass}
-          style={styles.input}
-          placeholder="Password"
-        />
-        <Text style={styles.error}>{errorPass}</Text>
-
-        <View style={styles.actions}>
-          <TouchableHighlight underlayColor="#333333" style={styles.register}>
-            <Text style={{ textAlign: "center", color: "#555555" }}>
-              Register
-            </Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-            underlayColor="#8cf"
-            onPress={() => handleButton()}
-            style={styles.button}
-          >
-            <Text style={{ textAlign: "center", color: "white" }}>login</Text>
-          </TouchableHighlight>
+    return(
+        <View style={styles.container}>
+            <Image style={styles.image} source={Books} />
+            <View style={styles.form}>
+                <TextInput onChangeText={setMail} style={styles.input} placeholder={"email"}/>
+                <Text style={styles.error}>{errorMail}</Text>
+                <TextInput onChangeText={setPass} style={styles.input} placeholder={"Password"}/>
+                <Text style={styles.error}>{errorPass}</Text>
+                <TouchableHighlight underlayColor={"#8cf"} onPress={()=>handleButton()} style={styles.button}>
+                    <Text style={{textAlign: 'center', color: "white"}}>login</Text>
+                </TouchableHighlight>
+            </View>
         </View>
-      </View>
-    </View>
-  );
+    );
 };
 
 const styles = StyleSheet.create({
